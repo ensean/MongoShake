@@ -294,10 +294,11 @@ func GetListCollectionQueryCondition(conn *MongoCommunityConn) bson.M {
 	// "collection", "timeseries", 3.4 start to support views
 	versionOk, _ := GetAndCompareVersion(conn, "3.4.0", "")
 	queryConditon := bson.M{}
-	if versionOk {
-		// 改成 not
-		queryConditon = bson.M{"type": bson.M{"$in": bson.A{"collection", "timeseries"}}}
-	}
+	// queryCondition for DocumentDB will always be empty
+	// if versionOk {
+	// 	// 改成 not
+	// 	queryConditon = bson.M{"type": bson.M{"$in": bson.A{"collection", "timeseries"}}}
+	// }
 
 	return queryConditon
 }
