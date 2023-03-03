@@ -178,6 +178,14 @@ func (exec *DocExecutor) start() {
 	}
 }
 
+func logDocs(docs []*bson.Raw) {
+	LOG.Error("Batch of docs starts -------------------------------------------")
+	for _, doc := range docs {
+			var m bson.M
+			bson.Unmarshal(*doc, &m)
+			LOG.Error("%+v\n", m)
+	}
+}
 // use by full sync
 func (exec *DocExecutor) doSync(docs []*bson.Raw) error {
 	if len(docs) == 0 || conf.Options.FullSyncExecutorDebug {
@@ -221,6 +229,8 @@ func (exec *DocExecutor) doSync(docs []*bson.Raw) error {
 	res, err := exec.conn.Client.Database(ns.Database).Collection(ns.Collection).BulkWrite(nil, models, opts)
 
 	if err != nil {
+		// log 出错的document到日志
+		logDocs(docs)
 		if _, ok := err.(mongo.BulkWriteException); !ok {
 			return fmt.Errorf("bulk run failed[%v]", err)
 		}
