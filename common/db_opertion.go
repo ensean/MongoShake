@@ -292,7 +292,7 @@ func FindFirstErrorIndexAndMessageN(err error) (int, string, bool) {
 
 func GetListCollectionQueryCondition(conn *MongoCommunityConn) bson.M {
 	// "collection", "timeseries", 3.4 start to support views
-	versionOk, _ := GetAndCompareVersion(conn, "3.4.0", "")
+	// versionOk, _ := GetAndCompareVersion(conn, "3.4.0", "")
 	queryConditon := bson.M{}
 	// queryCondition for DocumentDB will always be empty
 	// if versionOk {
