@@ -35,6 +35,8 @@ if [ -f "go.mod" ];then
     modulename=$(cat go.mod | grep module | awk '{print $2}')
 fi
 
+go mod tidy
+
 info="$modulename/common.BRANCH=$branch"
 # inject program information about compile
 if [ $DEBUG -eq 1 ]; then
