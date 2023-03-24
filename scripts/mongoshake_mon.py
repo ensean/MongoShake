@@ -10,7 +10,7 @@ import requests
 import os
 
 TARGET_URLS = ['http://127.0.0.1:9100/repl']  # mongoshake 增量监控地址
-INTERVAL = os.getenv("INTERVAL", 60)       # 采集间隔(秒)，未指定时取60s
+INTERVAL = int(os.getenv("INTERVAL", 60))       # 采集间隔(秒)，未指定时取60s
 
 def query_repl_result(url):
     resp = requests.get(url)
