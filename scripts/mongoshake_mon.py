@@ -61,11 +61,12 @@ def put_metrics_to_cloudwatch(repl_metrics):
 
 def main():
     while True:
+        time.sleep(INTERVAL)
         for url in TARGET_URLS:
             repl_result = query_repl_result(url)
             metrics = parse_metrics(repl_result)
             put_metrics_to_cloudwatch(metrics)
-        time.sleep(INTERVAL)
+        
 
 if __name__ == '__main__':
     main()

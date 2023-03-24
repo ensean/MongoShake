@@ -26,6 +26,8 @@ COPY --from=golang /app/bin .
 COPY ./scripts/mongoshake_mon.py .
 RUN pip install boto3 requests
 
+COPY ./scripts/run_ms_and_mon.sh .
+RUN chmod a+x /app/collector/run_ms_and_mon.sh
 # metrics
 EXPOSE 9100 9101 9200
-ENTRYPOINT ["/app/collector", "--conf=/app/conf/collector.conf", "--verbose=2", "&&", "python", "/app/mongoshake_mon.py"]
+ENTRYPOINT ["/app/collector/run_ms_and_mon.sh"]
